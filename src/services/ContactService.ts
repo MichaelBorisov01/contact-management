@@ -5,12 +5,7 @@ interface Contact {
   email: string;
 }
 
-const contacts: Contact[] = [
-  { id: 1, name: 'Борисов Михаил', phone: '1234567890', email: 'bori.mix@yandex.ru' },
-  { id: 2, name: 'Даниил Матяш', phone: '222222222', email: 'bori.mix@yandex.ru' },
-  { id: 3, name: 'Евгений Фалин', phone: '3333333333', email: 'bori.mix@yandex.ru' },
-  { id: 3, name: 'Диана Измайлова', phone: '55555555555', email: 'bori.mix@yandex.ru' },
-];
+let contacts: Contact[] = [];
 
 export function getContacts(): Promise<Contact[]> {
   return new Promise(resolve => {
@@ -21,6 +16,7 @@ export function getContacts(): Promise<Contact[]> {
 }
 
 export function addContact(contact: Contact): Promise<Contact> {
+  contact.id = contacts.length + 1;
   contacts.push(contact);
   localStorage.setItem('contacts', JSON.stringify(contacts));
   return new Promise(resolve => {
@@ -54,4 +50,16 @@ export function deleteContact(id: number): Promise<void> {
       resolve();
     }, 1000);
   });
+}
+
+if (localStorage.getItem('contacts')) {
+  contacts = JSON.parse(localStorage.getItem('contacts') || '');
+} else {
+  contacts = [
+    { id: 1, name: 'Борисов Михаил', phone: '1234567890', email: 'bori.mix@yandex.ru' },
+    { id: 2, name: 'Даниил Матяш', phone: '222222222', email: 'bori.mix@yandex.ru' },
+    { id: 3, name: 'Евгений Фалин', phone: '3333333333', email: 'bori.mix@yandex.ru' },
+    { id: 4, name: 'Диана Измайлова', phone: '55555555555', email: 'bori.mix@yandex.ru' },
+  ];
+  localStorage.setItem('contacts', JSON.stringify(contacts));
 }

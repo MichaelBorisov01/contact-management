@@ -1,14 +1,12 @@
 <template>
   <div>
-   <!-- <SearchBar @search="searchContacts" /> -->
-    <ContactList :contacts="filteredContacts" @edit="editContact" @delete="deleteContactApi" />
+    <ContactList :contacts="filteredContacts" @edit="editContact" @delete="deleteContactApi" @add="addContactForm" />
     <ContactForm v-if="editedContact" :contact="editedContact" @save="saveContact" />
   </div>
 </template>
 
 <script lang="ts">
 import { ref, computed, Ref } from 'vue';
-//import SearchBar from '@/components/SearchBar.vue';
 import ContactList from '@/components/ContactList.vue';
 import ContactForm from '@/components/ContactForm.vue';
 import { getContacts, addContact, updateContact, deleteContact } from '@/services/ContactService';
@@ -21,9 +19,9 @@ interface Contact {
 }
 
 export default {
-  components: {  ContactList, ContactForm },
+  components: { ContactList, ContactForm },
   setup() {
-    const contacts: Ref<Contact[]> = ref([]);  
+    const contacts: Ref<Contact[]> = ref([]);
     const editedContact: Ref<Contact | null> = ref(null);
     const searchQuery = ref('');
 
@@ -67,40 +65,19 @@ export default {
       editedContact.value = null;
     };
 
+    const addContactForm = () => {
+      editedContact.value = { id: 0, name: '', phone: '', email: '' };
+    };
+
     return {
       contacts,
       editedContact,
       filteredContacts,
-      //searchContacts,
       editContact,
       deleteContactApi,
       saveContact,
+      addContactForm,
     };
   },
 };
 </script>
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  li {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-  }
-
-  li:last-child {
-    border-bottom: none;
-  }
-
-  button {
-    margin-left: 10px;
-  }
-</style>

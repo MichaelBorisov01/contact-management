@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import  localStoragePlugin from './plugins/localStoragePlugin';
+//import  localStoragePlugin from './plugins/localStoragePlugin';
 
-createApp(App).use(localStoragePlugin).mount('#app');
+createApp(App).mount('#app');
