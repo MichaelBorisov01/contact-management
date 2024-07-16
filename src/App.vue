@@ -1,8 +1,14 @@
 <template>
-  <div>
-    <SearchBar v-model="searchQuery" />
-    <ContactList :contacts="filteredContacts" @edit="editContact" @delete="deleteContactApi" @add="addContactForm" />
-    <ContactForm v-if="editedContact" :contact="editedContact" @save="saveContact" />
+  <div class="container">
+    <div class="search-bar">
+      <SearchBar v-model="searchQuery" />
+    </div>
+    <div class="contact-list">
+      <ContactList :contacts="filteredContacts" @edit="editContact" @delete="deleteContactApi" @add="addContactForm" />
+    </div>
+    <div class="contact-form" v-if="editedContact">
+      <ContactForm :contact="editedContact" @save="saveContact" />
+    </div>
   </div>
 </template>
 
@@ -87,22 +93,82 @@ export default {
 </script>
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-  }
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  li {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-  }
-  li:last-child {
-    border-bottom: none;
-  }
-  button {
-    margin-left: 10px;
-  }
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input[type="search"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.contact-list {
+  margin-bottom: 20px;
+}
+
+.contact-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.contact-list li:last-child {
+  border-bottom: none;
+}
+
+.contact-list button {
+  margin-left: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.contact-list button[type="button"]{
+  margin-top: 20px;
+}
+
+.contact-list button:hover {
+  background-color: #3e8e41;
+}
+
+.contact-form input[type="text"], .contact-form input[type="email"], .contact-form input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.contact-form button[type="submit"] {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.contact-form button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
 </style>

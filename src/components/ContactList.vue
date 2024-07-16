@@ -4,7 +4,7 @@
       <ContactItem :contact="contact" @edit="editContact" @delete="deleteContact" />
     </li>
     <li>
-      <button @click="addContact">Add new contact</button>
+      <button type="button" @click="addContact">Add new contact</button>
     </li>
   </ul>
 </template>
