@@ -1,22 +1,30 @@
-<!-- <template>
-    <input type="search" v-model="searchQuery" @input="search" />
-  </template>
-  
-  <script lang="ts">
-  import { ref } from 'vue';
-  
-  export default {
-    setup() {
-      const searchQuery = ref('');
-  
-      const search = () => {
-        this.$emit('search', searchQuery.value);
-      };
-  
-      return {
-        searchQuery,
-        search,
-      };
+<template>
+  <div>
+    <input type="search" :value="modelValue" 
+    @input="$emit('update:modelValue', $event.target.value)" placeholder="Search...">
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  props: {
+    modelValue: {
+      type: String,
+      required: true,
     },
-  };
-  </script> -->
+  },
+  emits: ['update:modelValue'],
+});
+</script>
+
+<style scoped>
+input[type="search"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+</style>

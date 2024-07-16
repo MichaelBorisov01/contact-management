@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SearchBar v-model="searchQuery" />
     <ContactList :contacts="filteredContacts" @edit="editContact" @delete="deleteContactApi" @add="addContactForm" />
     <ContactForm v-if="editedContact" :contact="editedContact" @save="saveContact" />
   </div>
@@ -9,6 +10,7 @@
 import { ref, computed, Ref } from 'vue';
 import ContactList from '@/components/ContactList.vue';
 import ContactForm from '@/components/ContactForm.vue';
+import SearchBar from '@/components/SearchBar.vue';
 import { getContacts, addContact, updateContact, deleteContact } from '@/services/ContactService';
  
 
@@ -20,7 +22,7 @@ interface Contact {
 }
 
 export default {
-  components: { ContactList, ContactForm },
+  components: { ContactList, ContactForm, SearchBar },
   setup() {
     const contacts: Ref<Contact[]> = ref([]);
     const editedContact: Ref<Contact | null> = ref(null);
@@ -29,8 +31,6 @@ export default {
     getContacts().then((response: Contact[]) => {
       contacts.value = response;
     });
-
- 
 
     const filteredContacts = computed(() => {
       return contacts.value.filter(contact => {
@@ -80,7 +80,7 @@ export default {
       deleteContactApi,
       saveContact,
       addContactForm,
-    
+      searchQuery
     };
   },
 };
