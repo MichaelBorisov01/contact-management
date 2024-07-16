@@ -10,6 +10,7 @@ import { ref, computed, Ref } from 'vue';
 import ContactList from '@/components/ContactList.vue';
 import ContactForm from '@/components/ContactForm.vue';
 import { getContacts, addContact, updateContact, deleteContact } from '@/services/ContactService';
+ 
 
 interface Contact {
   id: number;
@@ -28,6 +29,8 @@ export default {
     getContacts().then((response: Contact[]) => {
       contacts.value = response;
     });
+
+ 
 
     const filteredContacts = computed(() => {
       return contacts.value.filter(contact => {
@@ -50,22 +53,21 @@ export default {
     };
 
     const saveContact = (contact: Contact) => {
-      if (contact.id) {
-        updateContact(contact).then(() => {
-          const index = contacts.value.findIndex(c => c.id === contact.id);
-          if (index !== -1) {
-            contacts.value[index] = contact;
-          }
-        });
-      } else {
-        addContact(contact).then(newContact => {
+  if (contact.id) {
+    updateContact(contact).then(() => {
+      const index = contacts.value.findIndex(c => c.id === contact.id);
+      contacts.value[index] = contact;
+      contacts.value = [...contacts.value];
+     
+      
+    });
+  } else {
+    addContact(contact).then(newContact => {
       contacts.value.push(newContact);
     });
-        
-      }
-      editedContact.value = null;
-    };
-
+  }
+  editedContact.value = null;
+};
     const addContactForm = () => {
       editedContact.value = { id: 0, name: '', phone: '', email: '' };
     };
@@ -78,6 +80,7 @@ export default {
       deleteContactApi,
       saveContact,
       addContactForm,
+    
     };
   },
 };

@@ -12,7 +12,7 @@ export function getContacts(): Promise<Contact[]> {
 }
 
 export function addContact(contact: Contact): Promise<Contact> {
-  contact.id = contacts.length + 1;
+  contact.id = contacts.length + 2;
   localStorage.setItem('contacts', JSON.stringify([...contacts, contact]));
   return Promise.resolve(contact);
 }
@@ -21,6 +21,7 @@ export function updateContact(contact: Contact): Promise<Contact> {
   const index = contacts.findIndex(c => c.id === contact.id);
   if (index !== -1) {
     contacts[index] = contact;
+     console.log('updateContact', contact.id);
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }
   return Promise.resolve(contact);
