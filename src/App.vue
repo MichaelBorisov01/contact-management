@@ -59,8 +59,9 @@ export default {
         });
       } else {
         addContact(contact).then(newContact => {
-          contacts.value.push(newContact);
-        });
+      contacts.value.push(newContact);
+    });
+        
       }
       editedContact.value = null;
     };
@@ -81,3 +82,24 @@ export default {
   },
 };
 </script>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  li:last-child {
+    border-bottom: none;
+  }
+  button {
+    margin-left: 10px;
+  }
+</style>

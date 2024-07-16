@@ -8,22 +8,13 @@ interface Contact {
 let contacts: Contact[] = [];
 
 export function getContacts(): Promise<Contact[]> {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(contacts);
-    }, 1000);
-  });
+  return Promise.resolve(contacts);
 }
 
 export function addContact(contact: Contact): Promise<Contact> {
   contact.id = contacts.length + 1;
-  contacts.push(contact);
-  localStorage.setItem('contacts', JSON.stringify(contacts));
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(contact);
-    }, 1000);
-  });
+  localStorage.setItem('contacts', JSON.stringify([...contacts, contact]));
+  return Promise.resolve(contact);
 }
 
 export function updateContact(contact: Contact): Promise<Contact> {
@@ -32,11 +23,7 @@ export function updateContact(contact: Contact): Promise<Contact> {
     contacts[index] = contact;
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(contact);
-    }, 1000);
-  });
+  return Promise.resolve(contact);
 }
 
 export function deleteContact(id: number): Promise<void> {
@@ -45,11 +32,7 @@ export function deleteContact(id: number): Promise<void> {
     contacts.splice(index, 1);
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve();
-    }, 1000);
-  });
+  return Promise.resolve();
 }
 
 if (localStorage.getItem('contacts')) {
