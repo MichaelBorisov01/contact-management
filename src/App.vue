@@ -64,8 +64,6 @@ export default {
       const index = contacts.value.findIndex(c => c.id === contact.id);
       contacts.value[index] = contact;
       contacts.value = [...contacts.value];
-     
-      
     });
   } else {
     addContact(contact).then(newContact => {

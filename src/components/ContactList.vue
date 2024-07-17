@@ -1,8 +1,10 @@
 <template>
   <ul>
+    <TransitionGroup name="list">
     <li v-for="contact in contacts" :key="contact.id">
       <ContactItem :contact="contact" @edit="editContact" @delete="deleteContact" />
     </li>
+  </TransitionGroup>
     <li>
       <button type="button" @click="addContact">Add new contact</button>
     </li>
@@ -49,3 +51,15 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped> 
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+</style>
